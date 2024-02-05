@@ -8,12 +8,12 @@ export class News extends Component {
     static defaultProps = {
         country: 'in',
         pageSize: 8,
-        category: 'science'
+        category: 'general'
     }
 
     static propTypes = {
         country: propTypes.string,
-        pageSize: propTypes.number,
+        pageSize: propTypes.string,
         category: propTypes.string
     }
 
@@ -34,7 +34,7 @@ export class News extends Component {
         this.setState({ loading: true })
         let data = await fetch(url);
         let parsedData = await data.json();
-        console.log(parsedData);
+        // console.log(parsedData);
         this.setState({
             articles: parsedData.articles,
             totalResults: parsedData.totalResults,
@@ -43,7 +43,7 @@ export class News extends Component {
     }
 
     handlePrevClick = async () => {
-        console.log("Previous Button Clicked");
+        // console.log("Previous Button Clicked");
 
         let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=9ecce4700c874ac7affd6abb7ee9edf1&page=${this.state.page - 1}&pageSize=${this.props.pageSize}`;
         this.setState({ loading: true })
@@ -57,7 +57,7 @@ export class News extends Component {
     }
 
     handleNextClick = async () => {
-        console.log("Next Button Clicked");
+        // console.log("Next Button Clicked");
         if (!(this.state.page + 1 > Math.ceil(this.state.totalResults / this.props.pageSize))) {
 
             let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=9ecce4700c874ac7affd6abb7ee9edf1&page=${this.state.page + 1}&pageSize=${this.props.pageSize}`;
@@ -76,7 +76,7 @@ export class News extends Component {
         // console.log("Rendered");
         return (
             <div className='container my-3'>
-                <h2 className='text-center'>Insiders News - Top Headlines</h2>
+                <h2 className='text-center'>Insiders News - Top Headlines Related To {this.props.category}</h2>
                 {this.loading && <Spinner />}
                 <div className="row">
                     {!this.loading && this.state.articles.map((element) => {
