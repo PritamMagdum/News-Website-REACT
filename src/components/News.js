@@ -26,25 +26,32 @@ export class News extends Component {
         }
     }
 
-    async updateNews() {
-        let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=9ecce4700c874ac7affd6abb7ee9edf1&page=${this.state.page}&pageSize=${this.props.pageSize}`;
-        this.setState({ loading: true })
-        let data = await fetch(url);
-        let parsedData = await data.json();
-        console.log(parsedData);
-        this.setState({
-            articles: parsedData.articles,
-            totalResults: parsedData.totalResults,
-            loading: false
-        })
-    }
+    // async updateNews() {
+    //     let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=9ecce4700c874ac7affd6abb7ee9edf1&page=${this.state.page}&pageSize=${this.props.pageSize}`;
+    //     this.setState({ loading: true })
+    //     let data = await fetch(url);
+    //     let parsedData = await data.json();
+    //     console.log(parsedData);
+    //     this.setState({
+    //         articles: parsedData.articles,
+    //         totalResults: parsedData.totalResults,
+    //         loading: false
+    //     })
+    // }
 
     async componentDidMount() {
+        this.props.setProgress(25);
         // console.log("Component DID Mount");
         let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=9ecce4700c874ac7affd6abb7ee9edf1&page=${this.state.page}&pageSize=${this.props.pageSize}`;
         this.setState({ loading: true })
         let data = await fetch(url);
+
+        this.props.setProgress(50);
+
         let parsedData = await data.json();
+
+        this.props.setProgress(75);
+
         // console.log(parsedData);
         this.setState({
             articles: parsedData.articles,
@@ -52,6 +59,7 @@ export class News extends Component {
             loading: false
         })
 
+        this.props.setProgress(100);
         // this.updateNews()
     }
 
