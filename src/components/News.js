@@ -100,8 +100,8 @@ export class News extends Component {
     render() {
         // console.log("Rendered");
         return (
-            <div className='container my-3'>
-                <h2 className='text-center'>Insiders News - Top Headlines Related To {this.props.category}</h2>
+            <div className='container my-3' >
+                <h2 className='text-center' style={{ marginTop: '70px' }}>Insiders News - Top Headlines Related To {this.props.category}</h2>
                 {this.loading && <Spinner />}
                 <div className="row">
                     {!this.loading && this.state.articles.map((element) => {
